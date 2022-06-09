@@ -1,30 +1,46 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { IExtendAnimal } from "../../models/IAnimal";
+import { IAnimal } from "../../models/IAnimal";
+import { StyledImage } from "../StyledComponents/Images";
+import {
+  StyledByIdAnimalWrapper,
+  StyledByIdImageWrapper,
+} from "../StyledComponents/Wrappers";
 
 export const ShowAnimal = () => {
   let params = useParams();
 
-  const [animal, setAnimal] = useState<IExtendAnimal>({
+  const [animal, setAnimal] = useState<IAnimal>({
+    id: 0,
     name: "",
-    shortDescription: "string",
-    imageUrl: "string",
+    imageUrl: "",
     isFed: false,
     lastFed: "",
-    longDescription: "string",
+    shortDescription: "",
+    longDescription: "",
+    yearOfBirth: 0,
   });
 
   useEffect(() => {
     axios
-      .get<IExtendAnimal>(
+      .get<IAnimal>(
         `https://animals.azurewebsites.net/api/animals/${params.id}`
       )
       .then((response) => {
         setAnimal(response.data);
       });
-    console.log(animal);
   }, []);
+  console.log(animal);
 
-  return <>ShowAnimal works</>;
+  return (
+    <StyledByIdAnimalWrapper>
+      <StyledByIdImageWrapper>
+        <StyledImage src={animal.imageUrl} alt={animal.name} />
+      </StyledByIdImageWrapper>
+      <h2>{animal.name}</h2>
+      <p>Född: {animal.yearOfBirth}</p>
+      <span>{animal.longDescription}</span>
+    </StyledByIdAnimalWrapper>
+  );
 };

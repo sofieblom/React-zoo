@@ -22,3 +22,11 @@ export const SingleAnimalWrapper = styled.div`
 export const StyledImageWrapper = styled.div`
   width: 200px;
 `;
+
+export const StyledByIdImageWrapper = styled.div`
+  width: 300px;
+`;
+
+export const StyledByIdAnimalWrapper = styled.div`
+  width: 90%;
+`;

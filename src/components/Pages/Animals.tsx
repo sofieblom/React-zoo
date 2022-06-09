@@ -9,43 +9,48 @@ import {
 } from "../StyledComponents/Wrappers";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Link } from "react-router-dom";
+import { animal, AnimalContext } from "../../context/AnimalContext";
+import { getAnimals, save } from "../../services/StorageServices";
 
 export const Animals = () => {
-  const [animals, setAnimals] = useState<IAnimal[]>([]);
+  const [animals, setAnimals] = useState<IAnimal[]>(getAnimals());
 
   useEffect(() => {
     if (animals.length !== 0) return;
 
     axios
-      .get("https://animals.azurewebsites.net/api/animals")
+      .get<IAnimal[]>("https://animals.azurewebsites.net/api/animals")
       .then((response) => {
         setAnimals(response.data);
+        save(response.data);
       });
   }, []);
 
-  console.log(animals);
+  // console.log(animals);
   const test = () => {
     console.log("arrow funkar");
   };
 
   return (
-    <StyledWrapper>
-      {animals.map((animal) => {
-        return (
-          <SingleAnimalWrapper key={animal.id}>
-            <StyledImageWrapper>
-              <StyledImage src={animal.imageUrl} alt={animal.name} />
-            </StyledImageWrapper>
-            <h3>{animal.name}</h3>
-            <p>{animal.shortDescription}</p>
-            <Link to={"/animal/" + animal.id}>
-              <KeyboardDoubleArrowRightIcon
-                onClick={test}
-              ></KeyboardDoubleArrowRightIcon>
-            </Link>
-          </SingleAnimalWrapper>
-        );
-      })}
-    </StyledWrapper>
+    <AnimalContext.Provider value={animal}>
+      <StyledWrapper>
+        {animals.map((animal) => {
+          return (
+            <SingleAnimalWrapper key={animal.id}>
+              <StyledImageWrapper>
+                <StyledImage src={animal.imageUrl} alt={animal.name} />
+              </StyledImageWrapper>
+              <h3>{animal.name}</h3>
+              <p>{animal.shortDescription}</p>
+              <Link to={"/animal/" + animal.id}>
+                <KeyboardDoubleArrowRightIcon
+                  onClick={test}
+                ></KeyboardDoubleArrowRightIcon>
+              </Link>
+            </SingleAnimalWrapper>
+          );
+        })}
+      </StyledWrapper>
+    </AnimalContext.Provider>
   );
 };

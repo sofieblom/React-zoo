@@ -1,12 +1,15 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Animals } from "./components/Animals";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <Animals />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Animals />}></Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

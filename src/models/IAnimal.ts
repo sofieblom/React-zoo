@@ -6,7 +6,9 @@ export interface IAnimal {
 }
 
 export interface IExtendAnimal {
-  animal: IAnimal;
+  name: string;
+  shortDescription: string;
+  imageUrl: string;
   isFed: boolean;
   lastFed: string;
   longDescription: string;

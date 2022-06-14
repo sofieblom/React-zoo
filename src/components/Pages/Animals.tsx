@@ -5,16 +5,22 @@ import { StyledImage } from "../StyledComponents/Images";
 import {
   SingleAnimalWrapper,
   StyledImageWrapper,
+  StyledInfoWrapper,
   StyledWrapper,
 } from "../StyledComponents/Wrappers";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { Link } from "react-router-dom";
 import { animal, AnimalContext } from "../../context/AnimalContext";
 import { getAnimals, save } from "../../services/StorageServices";
+import { StyledH3, StyledParagraph, SyledLink } from "../StyledComponents/Text";
+import Button from "@mui/material/Button";
 
 export const Animals = () => {
+  // set state with animals.
   const [animals, setAnimals] = useState<IAnimal[]>(getAnimals());
+  const [imageError, setImageError] = useState(false);
 
+  // fetch animal API, set state and save to loaclstorage
   useEffect(() => {
     if (animals.length !== 0) return;
 
@@ -26,31 +32,38 @@ export const Animals = () => {
       });
   }, []);
 
-  // console.log(animals);
-  const test = () => {
-    console.log("arrow funkar");
-  };
+  const imageOnError = () => {};
 
   return (
-    <AnimalContext.Provider value={animal}>
-      <StyledWrapper>
-        {animals.map((animal) => {
-          return (
-            <SingleAnimalWrapper key={animal.id}>
-              <StyledImageWrapper>
-                <StyledImage src={animal.imageUrl} alt={animal.name} />
-              </StyledImageWrapper>
-              <h3>{animal.name}</h3>
-              <p>{animal.shortDescription}</p>
-              <Link to={"/animal/" + animal.id}>
-                <KeyboardDoubleArrowRightIcon
-                  onClick={test}
-                ></KeyboardDoubleArrowRightIcon>
-              </Link>
-            </SingleAnimalWrapper>
-          );
-        })}
-      </StyledWrapper>
-    </AnimalContext.Provider>
+    // <AnimalContext.Provider value={animal}>
+    <StyledWrapper>
+      {animals.map((animal) => {
+        return (
+          <SingleAnimalWrapper key={animal.id}>
+            <StyledImageWrapper>
+              <StyledImage
+                src={animal.imageUrl}
+                alt={animal.name}
+                onError={(e) =>
+                  (e.currentTarget.src =
+                    "https://www.classify24.com/wp-content/uploads/2016/05/no-image.png")
+                }
+              />
+            </StyledImageWrapper>
+            <StyledInfoWrapper>
+              <StyledH3>{animal.name}</StyledH3>
+              <StyledParagraph>{animal.shortDescription}</StyledParagraph>
+            </StyledInfoWrapper>
+
+            <SyledLink to={"/animal/" + animal.id}>
+              <Button variant="contained" color="success">
+                Mer info
+              </Button>
+            </SyledLink>
+          </SingleAnimalWrapper>
+        );
+      })}
+    </StyledWrapper>
+    /* </AnimalContext.Provider> */
   );
 };

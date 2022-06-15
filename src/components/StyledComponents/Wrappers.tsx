@@ -1,16 +1,26 @@
 import styled from "styled-components";
 
+export const StyledBackgroundLayout = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(to right, #f1d46d, #d44444f0);
+`;
+
 export const StyledWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  background: linear-gradient(to right, #f1d46d, #d44444f0);
+
+  @media screen and (min-width: 1025px) {
+    width: 900px;
+    margin: auto;
+  }
 `;
 
 export const SingleAnimalWrapper = styled.div`
-  width: 200px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +29,10 @@ export const SingleAnimalWrapper = styled.div`
   margin: 20px 0px;
   gap: 10px;
   background-color: #f9f9f935;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 481px) {
+    width: 240px;
+  }
+  @media screen and (min-width: 1025px) {
     width: 220px;
   }
 `;
@@ -51,6 +64,10 @@ export const StyledByIdAnimalWrapper = styled.div`
   align-items: center;
   background-color: #f9f9f935;
   margin: 20px 0px;
+  @media screen and (min-width: 1025px) {
+    width: 900px;
+    margin: auto;
+  }
 `;
 
 export const StyledBackground = styled.div`
@@ -59,8 +76,6 @@ export const StyledBackground = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* background-color: #d8c579; */
-  background: linear-gradient(to right, #f1d46d, #d44444f0);
   min-height: 100vh;
 `;
 

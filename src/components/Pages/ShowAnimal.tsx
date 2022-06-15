@@ -29,14 +29,41 @@ export const ShowAnimal = () => {
   // const animalContext = useContext(AnimalContext);
 
   // get animals from localstorage and compare your id's to display the right one.
-  useEffect(() => {
-    let animalFromLS: IAnimal[] = getAnimals();
+  // useEffect(() => {
+  //   let animalsFromLS: IAnimal[] = getAnimals();
 
-    for (let i = 0; i < animalFromLS.length; i++) {
-      if (+params.id === animalFromLS[i].id) {
-        setAnimal(animalFromLS[i]);
+  //   for (let i = 0; i < animalsFromLS.length; i++) {
+  //     if (+params.id === animalsFromLS[i].id) {
+  //       setAnimal(animalsFromLS[i]);
+  //     }
+  //   }
+  // }, []);
+
+  // get list from LS, and current Date.
+  useEffect(() => {
+    let currentDate = new Date().getTime();
+    let animalsFromLS: IAnimal[] = getAnimals();
+    let hours = Math.floor(10800000);
+    console.log("Hours", hours);
+    console.log(
+      currentDate - new Date(animalsFromLS[1].lastFed).getTime(),
+      "current - last"
+    );
+
+    //check if it been more than 3 hourse since last fed - update to false
+    for (let i = 0; i < animalsFromLS.length; i++) {
+      if (+currentDate - new Date(animalsFromLS[i].lastFed).getTime() > hours) {
+        animalsFromLS[i].isFed = false;
+      }
+
+      // compare id, get right animal and set state.
+      if (+params.id === animalsFromLS[i].id) {
+        setAnimal(animalsFromLS[i]);
       }
     }
+
+    // save to localstorage
+    save(animalsFromLS);
   }, []);
 
   // if isFed status = false - update to true and update date
@@ -44,19 +71,17 @@ export const ShowAnimal = () => {
     animal.isFed = true;
     let feedTime = new Date();
     animal.lastFed = feedTime.toLocaleString();
-    console.log(animal.lastFed);
-    console.log(animal.isFed);
     setAnimal({ ...animal });
 
-    let animalFromLS: IAnimal[] = getAnimals();
+    let animalsFromLS: IAnimal[] = getAnimals();
 
-    for (let i = 0; i < animalFromLS.length; i++) {
-      if (animal.id === animalFromLS[i].id) {
-        animalFromLS[i] = { ...animal };
+    for (let i = 0; i < animalsFromLS.length; i++) {
+      if (animal.id === animalsFromLS[i].id) {
+        animalsFromLS[i] = { ...animal };
       }
     }
 
-    save(animalFromLS);
+    save(animalsFromLS);
   };
 
   return (

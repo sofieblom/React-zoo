@@ -26,7 +26,7 @@ export const FedStatus = (props: IFedStatusProps) => {
         <br />
         {props.animal.isFed ? (
           <Button variant="contained" color="success" disabled>
-            {props.animal.name} är mätt
+            {props.animal.name} har fått mat
           </Button>
         ) : (
           <Button

@@ -8,6 +8,14 @@ export const StyledH3 = styled.h3`
   font-size: 2rem;
   margin: 0px;
 `;
+export const StyledH1 = styled.h1`
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: #252525;
+  width: 100%;
+  margin: 0px;
+  padding: 20px 0px;
+  font-size: 2.5rem;
+`;
 
 export const StyledParagraph = styled.p`
   font-family: Verdana, Geneva, Tahoma, sans-serif;

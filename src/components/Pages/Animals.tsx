@@ -32,8 +32,6 @@ export const Animals = () => {
       });
   }, []);
 
-  const imageOnError = () => {};
-
   return (
     // <AnimalContext.Provider value={animal}>
     <StyledWrapper>

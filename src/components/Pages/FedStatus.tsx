@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AnimalContext } from "../../context/AnimalContext";
 import { IAnimal } from "../../models/IAnimal";
 import Button from "@mui/material/Button";
 import {

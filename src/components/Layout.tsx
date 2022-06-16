@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import { Animals } from "./components/Pages/Animals";
-import { StyledH1 } from "./components/StyledComponents/Text";
-import { StyledBackgroundLayout } from "./components/StyledComponents/Wrappers";
+import { Animals } from "./Pages/Animals";
+import { StyledH1 } from "./StyledComponents/Text";
+import { StyledBackgroundLayout } from "./StyledComponents/Wrappers";
 
 export const Layout = () => {
   return (

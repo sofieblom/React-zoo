@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AnimalContext } from "../../context/AnimalContext";
 import { IAnimal } from "../../models/IAnimal";
 import { getAnimals, save } from "../../services/StorageServices";
 import { StyledImage } from "../StyledComponents/Images";
@@ -26,29 +25,11 @@ export const ShowAnimal = () => {
     yearOfBirth: 0,
   });
 
-  // const animalContext = useContext(AnimalContext);
-
-  // get animals from localstorage and compare your id's to display the right one.
-  // useEffect(() => {
-  //   let animalsFromLS: IAnimal[] = getAnimals();
-
-  //   for (let i = 0; i < animalsFromLS.length; i++) {
-  //     if (+params.id === animalsFromLS[i].id) {
-  //       setAnimal(animalsFromLS[i]);
-  //     }
-  //   }
-  // }, []);
-
   // get list from LS, and current Date.
   useEffect(() => {
     let currentDate = new Date().getTime();
     let animalsFromLS: IAnimal[] = getAnimals();
     let hours = Math.floor(10800000);
-    console.log("Hours", hours);
-    console.log(
-      currentDate - new Date(animalsFromLS[1].lastFed).getTime(),
-      "current - last"
-    );
 
     //check if it been more than 3 hourse since last fed - update to false
     for (let i = 0; i < animalsFromLS.length; i++) {
@@ -66,7 +47,7 @@ export const ShowAnimal = () => {
     save(animalsFromLS);
   }, []);
 
-  // if isFed status = false - update to true and update date
+  // if isFed value = false - update to true and save to localstorage
   const feedAnimal = (animal: IAnimal) => {
     animal.isFed = true;
     let feedTime = new Date();

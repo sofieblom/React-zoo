@@ -8,9 +8,6 @@ import {
   StyledInfoWrapper,
   StyledWrapper,
 } from "../StyledComponents/Wrappers";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import { Link } from "react-router-dom";
-import { animal, AnimalContext } from "../../context/AnimalContext";
 import { getAnimals, save } from "../../services/StorageServices";
 import { StyledH3, StyledParagraph, SyledLink } from "../StyledComponents/Text";
 import Button from "@mui/material/Button";
@@ -33,7 +30,6 @@ export const Animals = () => {
   }, []);
 
   return (
-    // <AnimalContext.Provider value={animal}>
     <StyledWrapper>
       {animals.map((animal) => {
         return (
@@ -62,6 +58,5 @@ export const Animals = () => {
         );
       })}
     </StyledWrapper>
-    /* </AnimalContext.Provider> */
   );
 };

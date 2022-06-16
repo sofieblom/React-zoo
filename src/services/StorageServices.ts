@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { AnimalContext } from "../context/AnimalContext";
 import { IAnimal } from "../models/IAnimal";
 
 const LOCALSTORAGE_KEY = "animals";
